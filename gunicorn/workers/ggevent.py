@@ -97,7 +97,7 @@ class GeventWorker(AsyncWorker):
                     s, application=self.wsgi, spawn=pool, log=self.log,
                     handler_class=self.wsgi_handler, **ssl_args)
             else:
-                hfun = partial(self.handle, s)
+                hfun = partial(self.handle, s.getsockname())
                 server = StreamServer(s, handle=hfun, spawn=pool, **ssl_args)
 
             server.start()
